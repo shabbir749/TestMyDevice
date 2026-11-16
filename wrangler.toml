@@ -1,11 +1,5 @@
 name = "testmydevice"
 compatibility_date = "2026-11-01"
 
-# Static assets only (no Worker script needed)
 [assets]
 directory = "./public"
-
-# Attach to your subdomain (domain must be on Cloudflare DNS). Change this!
-[[routes]]
-pattern = "test.yourdomain.com"
-custom_domain = true
