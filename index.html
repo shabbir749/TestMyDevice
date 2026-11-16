@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Online Device Tester: Dead Pixel, Hz, Mic, Speaker, Keyboard & Webcam Test</title>
+<meta name="description" content="Free all-in-one device tester. Check dead pixels, screen refresh rate (Hz), microphone, speakers, keyboard, mouse polling rate and webcam in your browser. 100% client-side and private.">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://test.yourdomain.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f172a'/%3E%3Crect x='6' y='8' width='20' height='13' rx='2' fill='none' stroke='%2322d3ee' stroke-width='2.5'/%3E%3Crect x='11' y='24' width='10' height='2.5' fill='%2322d3ee'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Online Device Tester: Screen, Audio, Keyboard, Mouse & Webcam">
+<meta property="og:description" content="Test your screen, refresh rate, microphone, speakers, keyboard, mouse and webcam in one fast page. Nothing leaves your browser.">
+<meta property="og:url" content="https://test.yourdomain.com/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"All-in-One Device & Screen Tester","url":"https://test.yourdomain.com/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (modern web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Browser-based tools to test dead pixels, refresh rate, microphone, speakers, keyboard, mouse and webcam. Runs entirely on the client."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is this device tester safe and private?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every test runs locally in your browser. Audio, video and keystrokes are never uploaded or stored on a server."}},
+{"@type":"Question","name":"Why does my browser ask for camera or microphone permission?","acceptedAnswer":{"@type":"Answer","text":"Browsers require your explicit permission before a web page can use the camera or microphone. Click Allow to run the test, and you can revoke it at any time in the site settings."}},
+{"@type":"Question","name":"Why does my refresh rate show lower than my monitor specification?","acceptedAnswer":{"@type":"Answer","text":"The browser measures the rate it actually draws at. Battery saver mode, a wrong display setting, a background tab or a cable limit can lower it. Set the refresh rate in your operating system display settings and test again."}},
+{"@type":"Question","name":"Does the 165Hz tone really remove water from a phone speaker?","acceptedAnswer":{"@type":"Answer","text":"The vibration of a low-frequency tone can push small water droplets out of the speaker grille. It will not fix liquid damage inside the device, so let the phone dry completely afterwards."}},
+{"@type":"Question","name":"Can I use this tool to check a used phone or laptop before buying?","acceptedAnswer":{"@type":"Answer","text":"Yes. Open the page in the device browser and run the screen, audio, keyboard, touch and webcam tests during the meeting with the seller."}}]}]}
+</script>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--tx:#e2e8f0;--mu:#94a3b8;--ac:#22d3ee;--ok:#4ade80;--bad:#f87171;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 12px}h1{font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.2;margin:0 0 8px}
+header p{color:var(--mu);margin:0 0 14px;max-width:62ch}
+.badge{display:inline-block;background:#052e2b;border:1px solid #115e59;color:#5eead4;border-radius:99px;padding:5px 14px;font-size:.85rem}
+nav{display:flex;gap:8px;overflow-x:auto;padding:14px 0;position:sticky;top:0;background:var(--bg);z-index:5;scrollbar-width:thin}
+nav button{flex:0 0 auto;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font:inherit;cursor:pointer}
+nav button[aria-selected=true]{background:var(--ac);color:#04212a;border-color:var(--ac);font-weight:600}
+button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.card h2{margin:0 0 6px;font-size:1.25rem}.mu{color:var(--mu);font-size:.92rem;margin:0 0 14px}
+.btn{background:var(--ac);color:#04212a;border:0;border-radius:9px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;margin:0 8px 8px 0}
+.btn.s{background:#334155;color:var(--tx)}.btn:active{transform:translateY(1px)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.st{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}.st b{display:block;font-size:1.5rem;font-variant-numeric:tabular-nums}.st span{color:var(--mu);font-size:.8rem}
+canvas{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;display:block}
+#fs{position:fixed;inset:0;z-index:99;display:none;cursor:pointer}#fs.on{display:block}
+#fs i{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);background:#000a;color:#fff;font:normal .85rem system-ui;padding:6px 14px;border-radius:99px;animation:f 3s forwards}
+@keyframes f{70%{opacity:1}to{opacity:0}}
+.lane{position:relative;height:34px;background:var(--bg);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;overflow:hidden}
+.lane u{position:absolute;top:5px;left:0;width:44px;height:22px;border-radius:50% 50% 8px 8px;background:var(--ac);text-decoration:none;will-change:transform}
+.lane small{position:absolute;right:8px;top:6px;color:var(--mu)}
+.kb{display:flex;flex-direction:column;gap:4px;user-select:none;overflow-x:auto;padding-bottom:4px}
+.kr{display:flex;gap:4px;min-width:640px}
+.k{flex:1 1 0;min-width:0;height:40px;background:var(--bg);border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--mu)}
+.k.u{background:#164e63;color:#fff;border-color:#155e75}.k.d{background:var(--ac);color:#04212a;border-color:var(--ac)}
+#pad{height:180px;border:2px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;touch-action:none;text-align:center;padding:10px;color:var(--mu)}
+.mb{padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}.mb.d{background:var(--ac);color:#04212a}.mb.u{background:#164e63;color:#fff}
+video{width:100%;max-height:60vh;background:#000;border-radius:10px;display:block}
+.msg{color:var(--bad);min-height:1.4em;font-size:.9rem}
+audio{width:100%;margin-top:6px}
+.seo{padding:24px 0 40px}.seo h2{margin-top:2em}.seo h3{margin:1.4em 0 .3em}.seo p,.seo li{color:#cbd5e1;max-width:75ch}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:8px}summary{cursor:pointer;font-weight:600}
+footer{border-top:1px solid var(--line);padding:18px 0;color:var(--mu);font-size:.85rem;text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="w">
+<h1>All-in-One Device &amp; Screen Tester</h1>
+<p>Check your display, refresh rate, microphone, speakers, keyboard, mouse and webcam in seconds. No install, no sign-up.</p>
+<span class="badge">&#128274; 100% Client-Side: No audio, video, or keystrokes ever leave your browser.</span>
+</header>
+<main class="w">
+<nav role="tablist" aria-label="Tools" id="tabs"></nav>
+
+<section id="t-screen" class="card" hidden>
+<h2>Dead Pixel &amp; Screen Test</h2>
+<p class="mu">Click or press the arrow keys to cycle colors. Press Esc to exit. Look for dots that stay a different color.</p>
+<div class="g"><div class="st"><b id="sRes">-</b><span>Resolution (physical px)</span></div><div class="st"><b id="sVp">-</b><span>Viewport (CSS px)</span></div><div class="st"><b id="sAr">-</b><span>Aspect ratio</span></div><div class="st"><b id="sCd">-</b><span>Color depth / pixel ratio</span></div></div>
+<button class="btn" id="bCol">Start color test</button><button class="btn s" id="bGrad">Gradient banding test</button>
+</section>
+
+<section id="t-hz" class="card" hidden>
+<h2>Refresh Rate (Hz) &amp; FPS Test</h2>
+<p class="mu">Measured live with requestAnimationFrame. Keep this tab in the foreground for an accurate reading.</p>
+<div class="g"><div class="st"><b id="hHz">-</b><span>Refresh rate (Hz)</span></div><div class="st"><b id="hMs">-</b><span>Frame time (ms)</span></div><div class="st"><b id="hMm">-</b><span>Min / max (ms)</span></div></div>
+<div class="lane"><u data-fps="0"></u><small>Native rate</small></div>
+<div class="lane"><u data-fps="60"></u><small>60 FPS</small></div>
+<div class="lane"><u data-fps="30"></u><small>30 FPS</small></div>
+<p class="mu">Watch the objects. The higher the refresh rate, the smoother and less blurry the motion looks.</p>
+</section>
+
+<section id="t-mic" class="card" hidden>
+<h2>Microphone Tester</h2>
+<p class="mu">Allow microphone access, then speak. Record 5 seconds to hear how you sound.</p>
+<canvas id="mCv" width="800" height="160" aria-label="Frequency visualizer"></canvas>
+<div class="g" style="margin-top:12px"><div class="st"><b id="mDb">-</b><span>Level (dBFS)</span></div><div class="st"><b id="mPk">-</b><span>Peak (dBFS)</span></div></div>
+<button class="btn" id="mStart">Start microphone</button><button class="btn s" id="mRec" disabled>Record &amp; Playback 5s</button><button class="btn s" id="mStop" disabled>Stop</button>
+<audio id="mAud" controls hidden></audio><div class="msg" id="mMsg"></div>
+</section>
+
+<section id="t-spk" class="card" hidden>
+<h2>Speaker &amp; Stereo Audio Tester</h2>
+<p class="mu">Use headphones or speakers at a low volume first. Each button plays a test tone.</p>
+<button class="btn" data-a="L">Left channel</button><button class="btn" data-a="R">Right channel</button><button class="btn" data-a="S">Stereo sweep</button><button class="btn s" data-a="W">Water eject 165 Hz</button><button class="btn s" id="aStop">Stop</button>
+<p class="mu" id="aInfo">Ready.</p>
+<p class="mu">Water eject plays a 165 Hz sine wave for 30 seconds. Place the phone with the speaker facing down and raise the volume to maximum.</p>
+</section>
+
+<section id="t-kb" class="card" hidden>
+<h2>Keyboard &amp; Mouse Tester</h2>
+<p class="mu">Press keys: bright = held down, blue = already tested. Keys that never light up may be dead. Hold several keys together to check ghosting.</p>
+<div class="kb" id="kb"></div>
+<div class="g" style="margin-top:12px"><div class="st"><b id="kLast">-</b><span>Last key / code</span></div><div class="st"><b id="kCnt">0</b><span>Keys tested</span></div><div class="st"><b id="kHold">0</b><span>Held now</span></div></div>
+<button class="btn s" id="kReset">Reset</button>
+<h2 style="margin-top:18px">Mouse</h2>
+<div id="pad"><span class="mb" data-b="0">Left</span><span class="mb" data-b="1">Middle</span><span class="mb" data-b="2">Right</span><span class="mb" data-b="3">Back</span><span class="mb" data-b="4">Forward</span><span id="pTx">Click, scroll and move inside this box</span></div>
+<div class="g" style="margin-top:12px"><div class="st"><b id="pWh">0</b><span>Scroll delta (up/down)</span></div><div class="st"><b id="pHz">-</b><span>Polling rate (Hz, approx.)</span></div><div class="st"><b id="pXY">-</b><span>Position (x, y)</span></div></div>
+</section>
+
+<section id="t-cam" class="card" hidden>
+<h2>Webcam Tester</h2>
+<p class="mu">Allow camera access to see a live preview and your real resolution.</p>
+<video id="cV" autoplay playsinline muted></video>
+<div class="g" style="margin-top:12px"><div class="st"><b id="cRes">-</b><span>Resolution</span></div><div class="st"><b id="cQ">-</b><span>Quality</span></div><div class="st"><b id="cFps">-</b><span>Frame rate</span></div></div>
+<button class="btn" id="cStart">Start camera</button><button class="btn s" id="cMir">Mirror: on</button><button class="btn s" id="cSnap" disabled>Download snapshot</button><button class="btn s" id="cStop" disabled>Stop</button>
+<div class="msg" id="cMsg"></div>
+</section>
+
+<article class="seo">
+<h2>How to use each tool</h2>
+<h3>Dead pixel and screen test</h3><p>Start the color test and cycle through solid colors. A dead pixel stays black on bright colors, a stuck pixel stays one color, and backlight bleed shows on black. Use the gradient test to spot color banding.</p>
+<h3>Refresh rate and FPS test</h3><p>The counter shows your real refresh rate in Hz and the time of each frame. A 144 Hz monitor should report about 6.9 ms per frame. If you see 60 Hz, check your operating system display settings.</p>
+<h3>Microphone test</h3><p>Allow access, speak normally and watch the bars and dB meter. Record five seconds and play it back to check clarity, background noise and volume.</p>
+<h3>Speaker and stereo test</h3><p>Play the left and right channel tones to confirm each speaker works and is not swapped. The sweep moves sound between channels. The 165 Hz tone helps push water out of a phone speaker grille.</p>
+<h3>Keyboard and mouse test</h3><p>Press every key to find dead keys, and hold several at once to check ghosting. For the mouse, test all buttons and the scroll wheel, then move it quickly to read the polling rate.</p>
+<h3>Webcam test</h3><p>Start the camera to see the live image and resolution, such as 720p or 1080p. Use the snapshot button to save a frame and judge sharpness and color.</p>
+
+<h2>Tips for buying a used phone or laptop</h2>
+<ul>
+<li>Run the color test in a dim room to find dead pixels, burn-in and yellow or pink tints.</li>
+<li>Check that the refresh rate matches the listing, especially on gaming laptops and 90/120 Hz phones.</li>
+<li>Test both speakers and the microphone. Muffled sound can mean damage or water exposure.</li>
+<li>On laptops, press every key and test the trackpad buttons and clicks.</li>
+<li>Test the front camera. A blurry image may mean a scratched lens or a bad sensor.</li>
+<li>Run all tests in the seller&rsquo;s presence before paying, and check battery health in system settings.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<details><summary>Is this device tester safe and private?</summary><p>Yes. Every test runs locally in your browser. Audio, video and keystrokes are never uploaded or stored on a server.</p></details>
+<details><summary>Why does my browser ask for camera or microphone permission?</summary><p>Browsers require your explicit permission before a web page can use the camera or microphone. Click Allow to run the test, and you can revoke it at any time in the site settings.</p></details>
+<details><summary>Why does my refresh rate show lower than my monitor specification?</summary><p>The browser measures the rate it actually draws at. Battery saver mode, a wrong display setting, a background tab or a cable limit can lower it. Set the refresh rate in your operating system display settings and test again.</p></details>
+<details><summary>Does the 165Hz tone really remove water from a phone speaker?</summary><p>The vibration of a low-frequency tone can push small water droplets out of the speaker grille. It will not fix liquid damage inside the device, so let the phone dry completely afterwards.</p></details>
+<details><summary>Can I use this tool to check a used phone or laptop before buying?</summary><p>Yes. Open the page in the device browser and run the screen, audio, keyboard, touch and webcam tests during the meeting with the seller.</p></details>
+</article>
+</main>
+<footer><div class="w">&copy; <span id="yr"></span> Device Tester. Runs entirely in your browser.</div></footer>
+<div id="fs" role="dialog" aria-label="Full-screen test"><i>Click or use arrow keys. Esc to exit.</i></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)},Q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+$("yr").textContent=new Date().getFullYear();
+
+/* Tabs */
+var TABS=[["screen","Screen"],["hz","Hz / FPS"],["mic","Microphone"],["spk","Speaker"],["kb","Keyboard & Mouse"],["cam","Webcam"]],stops={};
+TABS.forEach(function(t){var b=document.createElement("button");b.textContent=t[1];b.setAttribute("role","tab");b.dataset.t=t[0];b.onclick=function(){show(t[0])};$("tabs").appendChild(b)});
+function show(id){
+ if(!TABS.some(function(t){return t[0]===id}))id="screen";
+ TABS.forEach(function(t){$("t-"+t[0]).hidden=t[0]!==id;if(t[0]!==id&&stops[t[0]])stops[t[0]]()});
+ Q("#tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===id)});
+ history.replaceState(null,"","#"+id);
+ if(id==="hz")hzStart();else hzStop();
+ if(id==="screen")info();
+}
+function info(){
+ var d=window.devicePixelRatio||1,w=Math.round(screen.width*d),h=Math.round(screen.height*d);
+ function g(a,b){return b?g(b,a%b):a}var c=g(screen.width,screen.height);
+ $("sRes").textContent=w+"\u00d7"+h;$("sVp").textContent=innerWidth+"\u00d7"+innerHeight;
+ $("sAr").textContent=(screen.width/c)+":"+(screen.height/c);$("sCd").textContent=screen.colorDepth+"-bit / "+d+"x";
+}
+addEventListener("resize",info);
+
+/* 1. Screen test */
+var BG=["#f00","#0f0","#00f","#fff","#000","#ff0","#0ff","#f0f","linear-gradient(90deg,#000,#fff)","linear-gradient(90deg,#000,#f00)","linear-gradient(90deg,#000,#0f0)","linear-gradient(90deg,#000,#00f)"],ci=0,fs=$("fs");
+function paint(){fs.style.background=BG[ci]}
+function openFs(i){ci=i;paint();fs.classList.add("on");var el=fs.firstChild;el.style.animation="none";void el.offsetWidth;el.style.animation="";if(fs.requestFullscreen)fs.requestFullscreen().catch(function(){})}
+function closeFs(){fs.classList.remove("on");if(document.fullscreenElement)document.exitFullscreen()}
+function step(n){ci=(ci+n+BG.length)%BG.length;paint()}
+$("bCol").onclick=function(){openFs(0)};$("bGrad").onclick=function(){openFs(8)};
+fs.onclick=function(){step(1)};
+document.addEventListener("fullscreenchange",function(){if(!document.fullscreenElement)fs.classList.remove("on")});
+addEventListener("keydown",function(e){
+ if(!fs.classList.contains("on"))return;
+ if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" "){step(1);e.preventDefault()}
+ else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){step(-1);e.preventDefault()}
+ else if(e.key==="Escape")closeFs();
+},true);
+
+/* 2. Hz test */
+var raf=0,last=0,dl=[],lanes=Q(".lane u"),lt=[0,0,0];
+function hzTick(t){
+ if(last){dl.push(t-last);if(dl.length>120)dl.shift();
+  if(dl.length>10){var s=dl.slice().sort(function(a,b){return a-b}),m=s[s.length>>1];
+   $("hHz").textContent=Math.round(1000/m);$("hMs").textContent=m.toFixed(2);$("hMm").textContent=s[0].toFixed(1)+" / "+s[s.length-1].toFixed(1)}}
+ last=t;
+ var W=lanes[0].parentNode.clientWidth-44,x=(t*0.45)%(2*W);x=x>W?2*W-x:x;
+ lanes.forEach(function(u,i){var f=+u.dataset.fps,iv=f?1000/f:0;
+  if(!f||t-lt[i]>=iv){lt[i]=t;u.style.transform="translateX("+x+"px)"}});
+ raf=requestAnimationFrame(hzTick);
+}
+function hzStart(){if(!raf){last=0;dl=[];raf=requestAnimationFrame(hzTick)}}
+function hzStop(){cancelAnimationFrame(raf);raf=0}
+
+/* 3. Microphone */
+var mS,mC,mAn,mRaf=0,mPk=-Infinity,mRecd,cv=$("mCv"),cx=cv.getContext("2d");
+function db(v){return v>0?20*Math.log10(v):-Infinity}
+function fmt(v){return isFinite(v)?v.toFixed(1):"-\u221e"}
+function mDraw(){
+ var f=new Uint8Array(mAn.frequencyBinCount),t=new Float32Array(mAn.fftSize);
+ mAn.getByteFrequencyData(f);mAn.getFloatTimeDomainData(t);
+ var p=0;for(var i=0;i<t.length;i++){var a=Math.abs(t[i]);if(a>p)p=a}
+ var d=db(p);if(d>mPk)mPk=d;$("mDb").textContent=fmt(d);$("mPk").textContent=fmt(mPk);
+ cx.clearRect(0,0,cv.width,cv.height);var n=64,bw=cv.width/n;
+ for(var j=0;j<n;j++){var h=f[j*2]/255*cv.height;cx.fillStyle="hsl("+(190-f[j*2]/3)+",80%,55%)";cx.fillRect(j*bw+1,cv.height-h,bw-2,h)}
+ mRaf=requestAnimationFrame(mDraw);
+}
+$("mStart").onclick=function(){
+ if(mS)return;$("mMsg").textContent="";
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+  mS=s;mC=new (window.AudioContext||window.webkitAudioContext)();mAn=mC.createAnalyser();mAn.fftSize=2048;
+  mC.createMediaStreamSource(s).connect(mAn);mPk=-Infinity;mDraw();
+  $("mRec").disabled=$("mStop").disabled=false;
+ }).catch(function(e){$("mMsg").textContent="Microphone unavailable: "+e.name+". Allow access in your browser settings."});
+};
+function mStop(){cancelAnimationFrame(mRaf);if(mS){mS.getTracks().forEach(function(t){t.stop()});mS=null}if(mC){mC.close();mC=null}$("mRec").disabled=$("mStop").disabled=true}
+$("mStop").onclick=mStop;stops.mic=mStop;
+$("mRec").onclick=function(){
+ if(!mS||!window.MediaRecorder){$("mMsg").textContent="Recording is not supported in this browser.";return}
+ var ch=[],r=new MediaRecorder(mS),b=$("mRec"),n=5;b.disabled=true;
+ r.ondataavailable=function(e){ch.push(e.data)};
+ r.onstop=function(){var a=$("mAud");a.src=URL.createObjectURL(new Blob(ch,{type:r.mimeType}));a.hidden=false;a.play().catch(function(){});b.disabled=false;b.textContent="Record & Playback 5s"};
+ r.start();var iv=setInterval(function(){b.textContent="Recording... "+n--;if(n<0){clearInterval(iv);if(r.state!=="inactive")r.stop()}},1000);b.textContent="Recording... 5";
+};
+
+/* 4. Speaker */
+var aC,aO,aG,aP,aIv,aTo;
+function aStop(){
+ clearInterval(aIv);clearTimeout(aTo);
+ if(aO){try{aG.gain.setTargetAtTime(0,aC.currentTime,.02);aO.stop(aC.currentTime+.1)}catch(e){}aO=null}
+ $("aInfo").textContent="Ready.";
+}
+function aPlay(m){
+ aStop();aC=aC||new (window.AudioContext||window.webkitAudioContext)();if(aC.state==="suspended")aC.resume();
+ aO=aC.createOscillator();aG=aC.createGain();aO.type="sine";aO.frequency.value=m==="W"?165:440;
+ var vol=m==="W"?.8:.25,pan=m==="L"?-1:m==="R"?1:0;
+ aG.gain.setValueAtTime(0,aC.currentTime);aG.gain.linearRampToValueAtTime(vol,aC.currentTime+.05);
+ aO.connect(aG);
+ if(aC.createStereoPanner){aP=aC.createStereoPanner();aP.pan.value=pan;aG.connect(aP);aP.connect(aC.destination)}else aG.connect(aC.destination);
+ if(m==="S"&&aP){var t0=performance.now();aIv=setInterval(function(){aP.pan.value=Math.sin((performance.now()-t0)/700)},30)}
+ aO.start();
+ $("aInfo").textContent={L:"Playing 440 Hz on the left channel.",R:"Playing 440 Hz on the right channel.",S:"Sweeping sound from left to right.",W:"Playing 165 Hz. Auto-stops in 30 seconds."}[m];
+ aTo=setTimeout(aStop,m==="W"?30000:8000);
+}
+Q("[data-a]").forEach(function(b){b.onclick=function(){aPlay(b.dataset.a)}});
+$("aStop").onclick=aStop;stops.spk=aStop;
+
+/* 5. Keyboard & mouse */
+var rows=[
+ [["Escape","Esc"],"F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",["Delete","Del"]],
+ [["Backquote","`"],"1","2","3","4","5","6","7","8","9","0",["Minus","-"],["Equal","="],["Backspace","Bksp",2]],
+ [["Tab","Tab",1.5]].concat("QWERTYUIOP".split("")).concat([["BracketLeft","["],["BracketRight","]"],["Backslash","\\",1.5]]),
+ [["CapsLock","Caps",1.8]].concat("ASDFGHJKL".split("")).concat([["Semicolon",";"],["Quote","'"],["Enter","Enter",2.2]]),
+ [["ShiftLeft","Shift",2.3]].concat("ZXCVBNM".split("")).concat([["Comma",","],["Period","."],["Slash","/"],["ShiftRight","Shift",2.7]]),
+ [["ControlLeft","Ctrl",1.3],["MetaLeft","Win",1.3],["AltLeft","Alt",1.3],["Space","Space",6],["AltRight","Alt"],["ControlRight","Ctrl",1.3],["ArrowLeft","\u2190"],["ArrowUp","\u2191"],["ArrowDown","\u2193"],["ArrowRight","\u2192"]]
+],kbEl=$("kb"),keys={},used={},held={};
+rows.forEach(function(r){var d=document.createElement("div");d.className="kr";
+ r.forEach(function(k){var c,l,w=1;if(typeof k==="string"){l=k;c=/^\d+$/.test(k)?"Digit"+k:/^F\d/.test(k)?k:"Key"+k}else{c=k[0];l=k[1];w=k[2]||1}
+  var e=document.createElement("div");e.className="k";e.textContent=l;e.style.flexGrow=w;keys[c]=e;d.appendChild(e)});kbEl.appendChild(d)});
+function kStat(){$("kCnt").textContent=Object.keys(used).length;$("kHold").textContent=Object.keys(held).length}
+addEventListener("keydown",function(e){
+ if(fs.classList.contains("on")||$("t-kb").hidden)return;
+ e.preventDefault();var el=keys[e.code];held[e.code]=1;used[e.code]=1;
+ if(el){el.classList.add("d");el.classList.add("u")}
+ $("kLast").textContent=(e.key===" "?"Space":e.key)+" / "+e.code;kStat();
+});
+addEventListener("keyup",function(e){if($("t-kb").hidden)return;delete held[e.code];if(keys[e.code])keys[e.code].classList.remove("d");kStat()});
+addEventListener("blur",function(){held={};Q(".k.d").forEach(function(k){k.classList.remove("d")});kStat()});
+$("kReset").onclick=function(){used={};held={};Q(".k").forEach(function(k){k.className="k"});$("kLast").textContent="-";kStat()};
+var pad=$("pad"),wh=0,cnt=0,pt=performance.now(),raw="onpointerrawupdate" in window;
+pad.addEventListener("contextmenu",function(e){e.preventDefault()});
+pad.addEventListener("mousedown",function(e){e.preventDefault();var b=pad.querySelector('[data-b="'+e.button+'"]');if(b){b.classList.add("d");b.classList.add("u")}});
+addEventListener("mouseup",function(e){var b=pad.querySelector('[data-b="'+e.button+'"]');if(b)b.classList.remove("d")});
+pad.addEventListener("auxclick",function(e){e.preventDefault()});
+pad.addEventListener("wheel",function(e){e.preventDefault();wh+=e.deltaY>0?1:-1;$("pWh").textContent=(e.deltaY>0?"\u2193 ":"\u2191 ")+Math.abs(wh)},{passive:false});
+pad.addEventListener(raw?"pointerrawupdate":"pointermove",function(e){
+ cnt++;var n=performance.now();
+ $("pXY").textContent=Math.round(e.offsetX)+", "+Math.round(e.offsetY);
+ if(n-pt>=1000){$("pHz").textContent=Math.round(cnt*1000/(n-pt));cnt=0;pt=n}
+});
+
+/* 6. Webcam */
+var cS,mir=true,v=$("cV");
+v.style.transform="scaleX(-1)";
+$("cStart").onclick=function(){
+ if(cS)return;$("cMsg").textContent="";
+ navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920},height:{ideal:1080}}}).then(function(s){
+  cS=s;v.srcObject=s;$("cSnap").disabled=$("cStop").disabled=false;
+  v.onloadedmetadata=function(){var w=v.videoWidth,h=v.videoHeight,st=s.getVideoTracks()[0].getSettings();
+   $("cRes").textContent=w+"\u00d7"+h;$("cQ").textContent=h>=2160?"4K":h>=1440?"1440p":h>=1080?"1080p Full HD":h>=720?"720p HD":h>=480?"480p SD":"Low";
+   $("cFps").textContent=st.frameRate?Math.round(st.frameRate)+" fps":"-"};
+ }).catch(function(e){$("cMsg").textContent="Camera unavailable: "+e.name+". Allow access in your browser settings."});
+};
+function cStop(){if(cS){cS.getTracks().forEach(function(t){t.stop()});cS=null;v.srcObject=null}$("cSnap").disabled=$("cStop").disabled=true}
+$("cStop").onclick=cStop;stops.cam=cStop;
+$("cMir").onclick=function(){mir=!mir;v.style.transform=mir?"scaleX(-1)":"";this.textContent="Mirror: "+(mir?"on":"off")};
+$("cSnap").onclick=function(){
+ var c=document.createElement("canvas");c.width=v.videoWidth;c.height=v.videoHeight;var x=c.getContext("2d");
+ if(mir){x.translate(c.width,0);x.scale(-1,1)}x.drawImage(v,0,0);
+ c.toBlob(function(b){var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="snapshot-"+Date.now()+".png";a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)});
+};
+
+addEventListener("hashchange",function(){show(location.hash.slice(1))});
+show(location.hash.slice(1)||"screen");
+})();
+</script>
+</body>
+</html>
