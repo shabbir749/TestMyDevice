@@ -44,7 +44,7 @@ function hzStart(){if(!raf){last=0;dl=[];raf=requestAnimationFrame(hzTick)}}
 function hzStop(){cancelAnimationFrame(raf);raf=0}
 
 /* 3. Microphone */
-var mS,mC,mAn,mRaf=0,mPk=-Infinity,mRecd,cv=$("mCv"),cx=cv.getContext("2d");
+var mS,mC,mAn,mRaf=0,mPk=-Infinity,mRecd,cv=$("mCv"),cx=cv.getContext?cv.getContext("2d"):null;
 function db(v){return v>0?20*Math.log10(v):-Infinity}
 function fmt(v){return isFinite(v)?v.toFixed(1):"-\u221e"}
 function mDraw(){
