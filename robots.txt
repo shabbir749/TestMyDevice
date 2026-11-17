@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://testmydevice.shaor.workers.dev/
+Sitemap: https://testmydevice.shaor.workers.dev/sitemap.xml
